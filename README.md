@@ -1,5 +1,5 @@
-# License Plate Generator for Model Cars
-Script to generate a license plate for model car (duh)
+# Japanese License Plate Generator for Model Cars
+Script to generate a Japanese license plate for model car (duh)
 
 ## Table of Content
 - [Description](#Description)
@@ -24,7 +24,7 @@ Prior to this we had always used [this used-to-be-free site](https://minicarmuse
 - [ ] Let the script use both FRM & FZ font depending on Land Transport Office Abbreviation （陸運支局略称）
 - [ ] Create a list of available abbreviations and allow user to choose class number （分類番号）
 - [ ] Make different background & font color for *kei* cars, commercial vehicles and *kei* commercial vehicles
-- [ ] Create a list of available Hiragana/English letter (for Hokkaido plates) to be used in plates
+- [ ] Create a list of available Hiragana/English letter (for Okinawa plates) to be used in plates
 - [ ] Make font size for the hiragana character in both font to be uniform
 - [ ] Create a field to allow user to choose whatever number they want
 - [ ] Create a user interface for this application/script
@@ -35,6 +35,7 @@ Prior to this we had always used [this used-to-be-free site](https://minicarmuse
 - Make the script a discord bot that allows mobile user to use the script
 - Make more abbreviations as the ones supplied by FRM and FZ is quite lacking (only 18 in both font combined compared to close to 100 that the official one has)
 - Make more hiragana character as the one supplied by FRM and FZ is quite limited
+- Make the script for other countries such as Thailand (because Thai plates more widely used by modellers)
 
 ## References
 - [Japan Number Plate Abbreviation List](https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E3%81%AE%E3%83%8A%E3%83%B3%E3%83%90%E3%83%BC%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E4%B8%80%E8%A6%A7)
