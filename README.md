@@ -21,6 +21,8 @@ I only managed to find two font projects that aim to recreate Japanese License p
 
 If you have more, feel free to let me know.
 
+P/S: This is my first time dipping my toe into Python. plsdontbeharshtometq
+
 ## Example
 
 Generated with v0.01 script
@@ -34,7 +36,7 @@ Actual License plate
 ## Tasklist
 - [ ] Let the script use both TRM & FZ font depending on Land Transport Office Abbreviation （陸運支局略称）
 - [ ] Create a list of available abbreviations and allow user to choose class number （分類番号）
-- [ ] Make different background & font color for *kei* cars, commercial vehicles and *kei* commercial vehicles
+- [x] Make different background & font color for *kei* cars, commercial vehicles and *kei* commercial vehicles
 - [ ] Create a list of available Hiragana/English letter (for Okinawa plates) to be used in plates
 - [ ] Make font size for the hiragana character in both font to be uniform
 - [ ] Create a field to allow user to choose whatever number they want
