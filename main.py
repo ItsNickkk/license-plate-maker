@@ -33,7 +33,7 @@ class Plate:
 		self.class_num = p_class_num
 		self.type = self.PLATE_TYPE[p_type]
 		self.hira = p_hira
-		self.hira_font = "resource/font/trm.ttf" if self.hira in self.FONT_TRM_HIRA else "resource/font/fz.otf"
+		self.hira_font = self._hira_font(p_hira)
 		self.hira_font_size = 450 if self.hira in self.FONT_TRM_HIRA else 500
 		self.font_color = self.FONT_COLOR[p_type]
 		self.number = p_number
@@ -42,10 +42,19 @@ class Plate:
 		return f"""
 		LTO Abbreviation: {self.lto_abbr}
 		Class Number: {self.class_num}
-		Hiragana Character: {self.hira}
+		Hiragana Character: {self.hira}, Font used: {self.hira_font}
 		Number: {self.number}
 		Path: {self.type}
 		"""
+
+	def _hira_font(self, letter):
+		if letter in self.FONT_TRM_HIRA:
+			return "resource/font/trm.ttf"
+		elif letter in self.FONT_FZ_HIRA:
+			return "resource/font/fz.otf"
+		else:
+			raise HiraganaNotFoundError
+			return "null"
 
 	def generatePlate(self):
 		img = Image.open(self.type)
@@ -54,10 +63,19 @@ class Plate:
 		draw.text((340, 70),self.lto_abbr+"＠"+self.class_num,fill=self.font_color, font=font_lto_abbr)
 		img.save("test.png")
 
+class Error(Exception):
+	pass #Base Exception
+
+class HiraganaNotFoundError(Error):
+	pass #Exception when plate_hira is not in the list
+
 if __name__ == "__main__":
-    p = Plate("横浜", "200", "か", "11-74", 4)
-    print(p)
-    p.generatePlate()
+	try:
+		p = Plate("横浜", "200", "a", "11-74", 4)
+		print(p)
+		p.generatePlate()
+	except HiraganaNotFoundError:
+		print("Hiragana not supported")
 # plate_info = Plate("横浜", "200", "か", "11-74", 3)
 # plate_info.PLATE_TYPE
 # Plate.PLATE_TYPE
