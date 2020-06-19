@@ -34,11 +34,11 @@ Actual License plate
 <img src="/resource/example/example2.jpg?raw=true" width="300"/>
 
 ## Tasklist
-- [ ] Let the script use both TRM & FZ font depending on Land Transport Office Abbreviation （陸運支局略称）
+- [x] Let the script use both TRM & FZ font depending on Land Transport Office Abbreviation （陸運支局略称）
 - [ ] Create a list of available abbreviations and allow user to choose class number （分類番号）
 - [x] Make different background & font color for *kei* cars, commercial vehicles and *kei* commercial vehicles
 - [ ] Create a list of available Hiragana/English letter (for Okinawa plates) to be used in plates
-- [ ] Make font size for the hiragana character in both font to be uniform
+- [x] Make font size for the hiragana character in both font to be uniform
 - [ ] Create a field to allow user to choose whatever number they want
 - [ ] Create a user interface for this application/script
 
@@ -57,5 +57,13 @@ Actual License plate
 - [Python PIL Library](https://github.com/python-pillow/Pillow)
 
 ## Changelog
+
+### v0.02
+- Made various element of a plate into components
+- Created "Plate" class to better manage everything
+- Created different background for different classes
+- Font changes by supported LTO Abbreviation of each font
+- Both TRM FZ font should now change dynamically based on supported element
+
 ### v0.01
 - Created the basic mechanism of the script
