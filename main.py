@@ -124,18 +124,3 @@ if __name__ == "__main__":
 		print("Hiragana not supported")
 	except LTOAbbreviationNotFoundError:
 		print("LTO Abbreviation not supported")
-# plate_info = Plate("横浜", "200", "か", "11-74", 3)
-# plate_info.PLATE_TYPE
-# Plate.PLATE_TYPE
-# # Get Template
-# img = Image.open("resource/template/comm.png")
-
-# # Get Font
-# font_area = ImageFont.truetype("resource/font/trm.ttf", 155)
-# font_main = ImageFont.truetype("resource/font/trm.ttf", 453)
-
-# # Draw
-# draw = ImageDraw.Draw(img)
-# draw.text((340, 70),"横浜＠２００",fill=(36,255,165), font=font_area)
-# draw.text((55, 250),"か10-74",fill=(36,255,165), font=font_main)
-
