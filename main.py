@@ -56,10 +56,10 @@ class Plate:
 		self.lto_abbr_font_size = 200 if self.lto_abbr in self.LIST_TRM_LTO_ABBR else 175
 		self.lto_abbr_position = (340, 70) if self.lto_abbr in self.LIST_TRM_LTO_ABBR else (365, 70)
 		#Class Number Setting
-		self.class_num = p_class_num
+		self.class_num = self._class_num_format(p_class_num)
 		self.class_num_font = self.LIST_FONT["TRM"]
 		#Plate Number Setting	
-		self.number = p_number
+		self.number = self._plate_format(p_number)
 		self.number_font = self.LIST_FONT["TRM"]
 
 	def __str__(self):
@@ -78,7 +78,6 @@ class Plate:
 			return self.LIST_FONT["FZ"]
 		else:
 			raise HiraganaNotFoundError
-			return "null"
 
 	def _lto_abbr_font(self, lto_abbr):
 		if lto_abbr in self.LIST_TRM_LTO_ABBR:
@@ -87,7 +86,25 @@ class Plate:
 			return self.LIST_FONT["FZ"]
 		else:
 			raise LTOAbbreviationNotFoundError
-			return "null"
+
+	def _plate_format(self, number):
+		if len(number) <= 4:
+			if len(number) == 4:
+				return f"{number[:2]}-{number[2:]}"
+			elif len(number) == 3:
+				return f".{number[:1]} {number[1:]}"
+			elif len(number) == 2:
+				return f".. {number}"
+			elif len(number) == 1:
+				return f".. .{number}"
+		else:
+			raise PlateNumberOutOfBoundError
+	
+	def _class_num_format(self, number):
+		if len(number) in (2,3):
+			return number
+		else:
+			raise ClassNumberOutOfBoundError
 
 	def generatePlate(self):
 		img = Image.open(self.type)
@@ -105,6 +122,8 @@ class Plate:
 		font_number = ImageFont.truetype(self.number_font, 400)
 		draw.text((335, 300), self.number, fill=self.font_color, font=font_number)
 		img.save("test.png")
+		im1 = img.convert('RGB')
+		im1.save('test.pdf')
 
 class Error(Exception):
 	pass #Base Exception
@@ -113,11 +132,17 @@ class HiraganaNotFoundError(Error):
 	pass #Exception when plate_hira is not in the list
 
 class LTOAbbreviationNotFoundError(Error):
-	pass #Exception when plate_hira is not in the list
+	pass #Exception when LTO Abbreviation is not in the list
+
+class PlateNumberOutOfBoundError(Error):
+	pass #Exception when plate number is not provided//more than 4 characters
+
+class ClassNumberOutOfBoundError(Error):
+	pass #Exception when plate number is not provided//more than 3/less than 2 characters
 
 if __name__ == "__main__":
 	try:
-		p = Plate("横浜", "330", "す", "10-74", 1)
+		p = Plate("横浜", "32", "す", "4", 1)
 		print(p)
 		p.generatePlate()
 	except HiraganaNotFoundError:
