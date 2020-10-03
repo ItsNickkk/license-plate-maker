@@ -1,21 +1,13 @@
+from pyx import *
 from PIL import Image, ImageDraw, ImageFont
-#------------
-#| 横浜200	|
-#|か　10-74	|
-#------------
-#横浜　= plate_lto_abbr
-#200 = plate_class
-#か　= plate_hira
-#10-74 = plate_number
-
 class Plate:
 
 	#List of plate type
 	PLATE_TYPE = {
-		1: "resource/template/white.eps",
-		2: "resource/template/yellow.eps",
-		3: "resource/template/green.eps",
-		4: "resource/template/black.eps"
+		1: "resource/template/normal.png",
+		2: "resource/template/kei.png",
+		3: "resource/template/comm.png",
+		4: "resource/template/kei-comm.png"
 	}
 
 	#List of font color
@@ -107,30 +99,8 @@ class Plate:
 			raise ClassNumberOutOfBoundError
 
 	def generatePlate(self):
-		img = Image.open(self.type)
-		img.load(scale=5)
-		img = img.resize((1417,710))
-		draw = ImageDraw.Draw(img)
-		#Draw LTO Abbreviation
-		font_lto_abbr = ImageFont.truetype(self.lto_abbr_font, self.lto_abbr_font_size)
-		draw.text(self.lto_abbr_position,self.lto_abbr,fill=self.font_color, font=font_lto_abbr)
-		#Draw Hiragana Character
-		font_hira = ImageFont.truetype(self.hira_font, self.hira_font_size)
-		draw.text(self.hira_position,self.hira,fill=self.font_color, font=font_hira)
-		#Draw Class Number
-		font_class_num = ImageFont.truetype(self.class_num_font, 200)
-		draw.text((770, 70), self.class_num, fill=self.font_color, font=font_class_num)
-		#Draw Number
-		font_number = ImageFont.truetype(self.number_font, 400)
-		draw.text((335, 300), self.number, fill=self.font_color, font=font_number)
+		=
 
-		img.save('test.png', lossless = True, )
-
-		# img_w, img_h = img.size
-		# img_resize_w = 236
-		# img_resize_h = img_resize_w*img_h//img_w
-		# img_resized = img.resize((img_resize_w, img_resize_h), Image.ANTIALIAS)
-		# img.save('test.png')
 
 class Error(Exception):
 	pass #Base Exception
@@ -147,9 +117,10 @@ class PlateNumberOutOfBoundError(Error):
 class ClassNumberOutOfBoundError(Error):
 	pass #Exception when plate number is not provided//more than 3/less than 2 characters
 
+
 if __name__ == "__main__":
 	try:
-		p = Plate("浜松", "333", "す", "461", 4)
+		p = Plate("横浜", "32", "す", "4", 1)
 		print(p)
 		p.generatePlate()
 	except HiraganaNotFoundError:
