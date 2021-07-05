@@ -4,8 +4,7 @@ Script to generate a Japanese license plate for model car (duh)
 ## Table of Content
 - [Description](#Description)
 - [Example](#Example)
-- [Tasklist](#Tasklist)
-- [Possible improvements](#Possible-improvements)
+- [Future direction of this module](#Future&#32;direction&#32;of&#32;this&#32;module)
 - [References](#References)
 - [Changelog](#Changelog)
 ## Description
@@ -27,11 +26,11 @@ P/S: This is my first time dipping my toe into Python. plsdontbeharshtometq
 
 Generated with v0.01 script
 
-<img src="/resource/example/example.png?raw=true" width="300"/>
+<img src="/resources/example/example.png?raw=true" width="300"/>
 
 Actual License plate
 
-<img src="/resource/example/example2.jpg?raw=true" width="300"/>
+<img src="/resources/example/example2.jpg?raw=true" width="300"/>
 
 ## Future direction of this module
 This module will be used in my upcoming modeller's tool website that I am currently working on on and off. The script will be here open-source and as-is, and will be a part of the said website to provide a GUI for plate generation.
