@@ -49,6 +49,8 @@ I will improve this module if I have the time. Feel free to contribute towards t
 - Reorganize the resources file
 - Reorganize the project folder to remove clutter
 - Added plate name to make saving feature more usable(?)
+- Added support to put on generic bolt and screws
+- Added Kari Plate (仮ナンバー) template, but it is not being used as of now as I am still studying how the whole temporary plate works in Japan
 
 ### v0.02
 - Made various element of a plate into components
