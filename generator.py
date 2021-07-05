@@ -1,4 +1,5 @@
 from PIL import Image, ImageDraw, ImageFont
+from datetime import datetime
 #------------
 #| 横浜200	|
 #|か　10-74	|
@@ -12,10 +13,11 @@ class Plate:
 
 	#List of plate type
 	PLATE_TYPE = {
-		1: "resource/template/white.eps",
-		2: "resource/template/yellow.eps",
-		3: "resource/template/green.eps",
-		4: "resource/template/black.eps"
+		2: 'resources/template/kei.png',
+		1: 'resources/template/normal.png',
+		3: 'resources/template/comm.png',
+		4: 'resources/template/kei-comm.png',
+		5: 'resources/template/kari-white.png'
 	}
 
 	#List of font color
@@ -23,15 +25,16 @@ class Plate:
 		1: (25,79,56),
 		2: (50,50,50),
 		3: (255,255,255),
-		4: (243,194,4)
+		4: (243,194,4),
+		5: (0, 0, 0)
 	}
 
 	#List of font directories
 	LIST_FONT = {
-		"TRM": "resource/font/trm.ttf",
-		"FZ": "resource/font/fz.otf"
+		"TRM": 'resources/font/trm.ttf',
+		"FZ": 'resources/font/fz.otf'
 	}
-
+	
 	#List of Hiragana by Font
 	FONT_TRM_HIRA = list("あいうかきくけこせを")
 	FONT_FZ_HIRA = list("えさすそたちつてとなにぬねのはひふほまみむめもやゆよらりるれろわ")
@@ -40,9 +43,20 @@ class Plate:
 	LIST_TRM_LTO_ABBR = ["ナニワ", "山口", "岐阜", "石川", "浜松", "島根", "横浜", "Ｏ", "Ｉ"]
 	LIST_FZ_LTO_ABBR = ["ツクバ", "福島", "北九州", "奈良", "徳島", "金沢", "山口", "富士山", "高知"]
 
-	
+	BOLT_SOURCE = 'resources/template/bolt.png'
+	SCREW_SOURCE = 'resources/template/screw.png'
 
-	def __init__(self, p_lto_abbr, p_class_num, p_hira, p_number, p_type: int=1):
+	SCREW_POS = {
+		1: ((205, 80), (1130, 80)),
+		2: ((205, 50), (1130, 50))
+	}
+
+	BOLT_POS = {
+		1: (200, 75),
+		2: (200, 45)
+	}
+
+	def __init__(self, p_lto_abbr, p_class_num, p_hira, p_number, p_bolt, p_screw, p_type: int=1):
 		self.type = self.PLATE_TYPE[p_type]
 		self.font_color = self.FONT_COLOR[p_type]
 		#Hiragana Character Setting
@@ -61,7 +75,13 @@ class Plate:
 		#Plate Number Setting	
 		self.number = self._plate_format(p_number)
 		self.number_font = self.LIST_FONT["TRM"]
-
+		#Bolt and Screw Setting
+		self.bolt = p_bolt
+		self.bolt_position = self._bolt_position(p_type)
+		self.bolt_source = self.BOLT_SOURCE
+		self.screw = p_screw
+		self.screw_position = self._screw_positon(p_type)
+		self.screw_source = self.SCREW_SOURCE
 	def __str__(self):
 		return f"""
 		LTO Abbreviation: {self.lto_abbr}, Font used: {self.lto_abbr_font}
@@ -70,7 +90,7 @@ class Plate:
 		Number: {self.number}
 		Path: {self.type}
 		"""
-
+	
 	def _hira_font(self, letter):
 		if letter in self.FONT_TRM_HIRA:
 			return self.LIST_FONT["TRM"]
@@ -104,12 +124,22 @@ class Plate:
 		if len(number) in (2,3):
 			return number
 		else:
-			raise ClassNumberOutOfBoundError
+			raise ClassNumberOutOfBoundError("ClassNumberOutOfBoundError")
+	
+	def _screw_positon(self, type):
+		if type != 5:
+			return self.SCREW_POS[1]
+		else:
+			return self.SCREW_POS[2]
+	
+	def _bolt_position(self, type):
+		if type != 5:
+			return self.BOLT_POS[1]
+		else:
+			return self.BOLT_POS[2]
 
 	def generatePlate(self):
 		img = Image.open(self.type)
-		img.load(scale=5)
-		img = img.resize((1417,710))
 		draw = ImageDraw.Draw(img)
 		#Draw LTO Abbreviation
 		font_lto_abbr = ImageFont.truetype(self.lto_abbr_font, self.lto_abbr_font_size)
@@ -123,15 +153,23 @@ class Plate:
 		#Draw Number
 		font_number = ImageFont.truetype(self.number_font, 400)
 		draw.text((335, 300), self.number, fill=self.font_color, font=font_number)
-
-		img.save('test.png', lossless = True, )
-
-		# img_w, img_h = img.size
-		# img_resize_w = 236
-		# img_resize_h = img_resize_w*img_h//img_w
-		# img_resized = img.resize((img_resize_w, img_resize_h), Image.ANTIALIAS)
-		# img.save('test.png')
-
+		#Draw screw
+		if self.screw:
+			screw = Image.open(self.screw_source)
+			resized_screw = screw.resize((round(screw.size[0]*0.15), round(screw.size[1]*0.15)))
+			img.paste(resized_screw, self.screw_position[0], resized_screw)
+			img.paste(resized_screw, self.screw_position[1], resized_screw)
+		#Draw Bolt
+		if self.bolt:
+			bolt = Image.open(self.bolt_source)
+			resized_bolt = bolt.resize((round(bolt.size[0]*0.18), round(bolt.size[1]*0.18)))
+			img.paste(resized_bolt, self.bolt_position, resized_bolt)
+		#generate plate name to be sent back to client
+		now = datetime.now()
+		date_time = now.strftime("%m%d%Y%H%M%S")
+		filename = date_time + "_plate.png"
+		img.save(filename)
+		return filename
 class Error(Exception):
 	pass #Base Exception
 
@@ -148,11 +186,6 @@ class ClassNumberOutOfBoundError(Error):
 	pass #Exception when plate number is not provided//more than 3/less than 2 characters
 
 if __name__ == "__main__":
-	try:
-		p = Plate("浜松", "333", "す", "461", 4)
-		print(p)
-		p.generatePlate()
-	except HiraganaNotFoundError:
-		print("Hiragana not supported")
-	except LTOAbbreviationNotFoundError:
-		print("LTO Abbreviation not supported")
+	p = Plate("浜松", "333", "す", "461", False, False, 1)
+	print(p)
+	p.generatePlate()

@@ -33,22 +33,10 @@ Actual License plate
 
 <img src="/resource/example/example2.jpg?raw=true" width="300"/>
 
-## Tasklist
-- [x] Let the script use both TRM & FZ font depending on Land Transport Office Abbreviation （陸運支局略称）
-- [ ] Create a list of available abbreviations and allow user to choose class number （分類番号）
-- [x] Make different background & font color for *kei* cars, commercial vehicles and *kei* commercial vehicles
-- [ ] Create a list of available Hiragana/English letter (for Okinawa plates) to be used in plates
-- [x] Make font size for the hiragana character in both font to be uniform
-- [ ] Create a field to allow user to choose whatever number they want
-- [ ] Create a user interface for this application/script
+## Future direction of this module
+This module will be used in my upcoming modeller's tool website that I am currently working on on and off. The script will be here open-source and as-is, and will be a part of the said website to provide a GUI for plate generation.
 
-## Possible improvements
-
-- Generate a printable PDF file that changes size dynamically to accomodate 1/18 scale all the way to 1/100 scale
-- Make the script a discord bot that allows mobile user to use the script
-- Make more abbreviations as the ones supplied by TRM and FZ is quite lacking (only 18 in both font combined compared to close to 100 that the official one has)
-- Make more hiragana character as the one supplied by TRM and FZ is quite limited
-- Make the script for other countries such as Thailand (because Thai plates more widely used by modellers)
+I will improve this module if I have the time. Feel free to contribute towards this module as you see fit! 
 
 ## References
 - [Japan Number Plate Abbreviation List](https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E3%81%AE%E3%83%8A%E3%83%B3%E3%83%90%E3%83%BC%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E4%B8%80%E8%A6%A7)
@@ -57,6 +45,11 @@ Actual License plate
 - [Python PIL Library](https://github.com/python-pillow/Pillow)
 
 ## Changelog
+
+### v0.03
+- Reorganize the resources file
+- Reorganize the project folder to remove clutter
+- Added plate name to make saving feature more usable(?)
 
 ### v0.02
 - Made various element of a plate into components
