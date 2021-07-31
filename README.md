@@ -35,7 +35,7 @@ Actual License plate
 ## Future direction of this module
 This module will be used in my upcoming modeller's tool website that I am currently working on on and off. The script will be here open-source and as-is, and will be a part of the said website to provide a GUI for plate generation.
 
-[This is the direct link to the tool](164.works/lcm/)
+[This is the direct link to the tool](http://164.works/lcm/)
 
 I will improve this module if I have the time. Feel free to contribute towards this module as you see fit! 
 
